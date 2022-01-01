@@ -12,6 +12,7 @@ phases:
     commands:
       # Use AWS SAM to package the application by using AWS CloudFormation
       - aws cloudformation package --template template.yaml --s3-bucket hashane-v1 --output-template template-export.yml
+      - aws cloudformation deploy --template-file template-export.yml --stack-name product-service-$ENV_NAME --capabilities CAPABILITY_IAM 
   post_build:
     commands:
       - echo Deployment completed.
