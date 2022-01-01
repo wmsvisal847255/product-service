@@ -37,7 +37,7 @@ Resources:
             Path: '/product/{productCode}'
             Method: get
 
-  PostUser:
+  PostProduct:
     Type: 'AWS::Serverless::Function'
     Properties:
       Handler: src/handlers/save-update-product.handler
