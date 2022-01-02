@@ -1,0 +1,59 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: product-service
+Transform:
+- AWS::Serverless-2016-10-31
+Globals:
+  Function:
+    Runtime: nodejs12.x
+    Environment:
+      Variables:
+        TABLE_NAME:
+          Ref: Table
+    Timeout: 3
+    MemorySize: 128
+Resources:
+  Table:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      PrimaryKey:
+        Name: productCode
+        Type: String
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
+  GetProduct:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/handlers/get-product.handler
+      Policies: AmazonDynamoDBReadOnlyAccess
+      Events:
+        GetProduct:
+          Type: Api
+          Properties:
+            Path: /product/{productCode}
+            Method: get
+      CodeUri: GetProduct
+  PostProduct:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/handlers/save-update-product.handler
+      Policies: AmazonDynamoDBFullAccess
+      Events:
+        GetProduct:
+          Type: Api
+          Properties:
+            Path: /product/{productCode}
+            Method: post
+      CodeUri: PostProduct
+  DeleteProduct:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/handlers/delete-product.handler
+      Policies: AmazonDynamoDBFullAccess
+      Events:
+        GetProduct:
+          Type: Api
+          Properties:
+            Path: /product/{productCode}
+            Method: delete
+      CodeUri: DeleteProduct

@@ -1,0 +1,22 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      # Install all dependencies (including dependencies for running tests)
+      - echo Installing NPM
+      - npm install
+  pre_build:
+    commands:
+  build:
+    commands:
+      # Use AWS SAM to package the application by using AWS CloudFormation
+      - aws cloudformation package --template template.yaml --s3-bucket hashane-v1 --output-template template-export.yml
+  post_build:
+    commands:
+      - echo Deployment completed.
+artifacts:
+  files:
+    - template-export.yml
+
+
