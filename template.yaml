@@ -14,10 +14,36 @@ Globals:
     Timeout: 3
     MemorySize: 128
 
+Parameters:
+  Environment:
+    Type: String
+    Default: dev
+    AllowedValues:
+      - dev
+      - staging
+      - prod
+    Description: Environment of this stack of resources
+
+Mappings:
+  ResourcesName:
+    dev:
+      tableName: BookingTripDev
+      tableNameArn: BookingTripDevArn
+      arn: UserPoolArnDev
+    staging:
+      tableName: BookingTripStaging
+      tableNameArn: BookingTripStagingArn
+      arn: UserPoolArnStaging
+    prod:
+      tableName: BookingTripProd
+      tableNameArn: BookingTripProdArn
+      arn: UserPoolArnProd
+
 Resources:
   Table:
     Type: 'AWS::Serverless::SimpleTable'
     Properties:
+      TableName: !FindInMap [ResourcesName, !Ref Environment, tableName]
       PrimaryKey:
         Name: productCode
         Type: String
