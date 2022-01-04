@@ -16,6 +16,6 @@ phases:
       - echo Deployment completed.
 artifacts:
   files:
-    - template-export.yml
+    - packaged.yaml
 
 
