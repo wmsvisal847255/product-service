@@ -8,9 +8,6 @@ Transform:
 Globals:
   Function:
     Runtime: nodejs12.x
-    Environment:     
-      Variables:
-         TABLE_NAME: !Ref Table
     Timeout: 3
     MemorySize: 128
 
@@ -27,16 +24,16 @@ Parameters:
 Mappings:
   ResourcesName:
     dev:
-      tableName: BookingTripDev
-      tableNameArn: BookingTripDevArn
+      tableName: ProductTripDev
+      tableNameArn: ProductTripDevArn
       arn: UserPoolArnDev
     staging:
-      tableName: BookingTripStaging
-      tableNameArn: BookingTripStagingArn
+      tableName: ProductTripStaging
+      tableNameArn: ProductTripStagingArn
       arn: UserPoolArnStaging
     prod:
-      tableName: BookingTripProd
-      tableNameArn: BookingTripProdArn
+      tableName: ProductTripProd
+      tableNameArn: ProductTripProdArn
       arn: UserPoolArnProd
 
 Resources:
