@@ -18,19 +18,19 @@ Replace the placeholders with values corresponding to your GitHub Repo and Token
 
 ```bash
 aws ssm put-parameter \
-    --name "/service/aws-sam-pipeline/github/repo" \
+    --name "/service/aws-sam-pipeline-product/github/repo" \
     --description "Github Repository name for Cloudformation Stack aws-sam-pipeline" \
     --type "String" \
     --value ""
 
 aws ssm put-parameter \
-    --name "/service/aws-sam-pipeline/github/token" \
+    --name "/service/aws-sam-pipeline-product/github/token" \
     --description "Github Token for Cloudformation Stack aws-sam-pipeline" \
     --type "String" \
     --value ""
 
 aws ssm put-parameter \
-    --name "/service/aws-sam-pipeline/github/user" \
+    --name "/service/aws-sam-pipeline-product/github/user" \
     --description "Github Username for Cloudformation Stack aws-sam-pipeline" \
     --type "String" \
     --value ""
