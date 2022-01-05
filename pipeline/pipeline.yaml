@@ -56,7 +56,7 @@ Resources:
               Value: !Ref AWS::StackName
             -
               Key: "Project"
-              Value: aws-sam-pipeline-booking
+              Value: aws-sam-pipeline-product
         DeletionPolicy: Retain
         UpdateReplacePolicy: Retain
 
@@ -71,8 +71,8 @@ Resources:
     CodeBuildProject:
         Type: AWS::CodeBuild::Project
         Properties:
-            Name: aws-sam-pipeline-booking
-            Description: Build project for the aws-sam-pipeline-booking
+            Name: aws-sam-pipeline-product
+            Description: Build project for the aws-sam-pipeline-product
             Artifacts:
               Type: CODEPIPELINE
             Environment: 
@@ -95,7 +95,7 @@ Resources:
                 Value: !Ref AWS::StackName
               -
                 Key: "Project"
-                Value: aws-sam-pipeline-booking
+                Value: aws-sam-pipeline-product
 
 ########  #### ########  ######## ##       #### ##    ## ######## 
 ##     ##  ##  ##     ## ##       ##        ##  ###   ## ##       
@@ -111,7 +111,7 @@ Resources:
             ArtifactStore: 
                 Location: !Ref BuildArtifactsBucket
                 Type: S3
-            Name: aws-sam-pipeline-booking
+            Name: aws-sam-pipeline-product
             RoleArn: !GetAtt CodePipelineExecutionRole.Arn
             Stages:
                 - Name: Source
@@ -161,8 +161,8 @@ Resources:
                             }
                         ActionMode: CHANGE_SET_REPLACE
                         RoleArn: !GetAtt CloudFormationExecutionRole.Arn
-                        StackName: aws-sam-pipeline-booking-dev
-                        ChangeSetName: aws-sam-pipeline-booking-ChangeSet-dev
+                        StackName: aws-sam-pipeline-product-dev
+                        ChangeSetName: aws-sam-pipeline-product-ChangeSet-dev
                         TemplatePath: BuildArtifactAsZip::packaged.yaml
                         Capabilities: CAPABILITY_IAM
                       InputArtifacts:
@@ -177,10 +177,10 @@ Resources:
                       Configuration:
                         ActionMode: CHANGE_SET_EXECUTE
                         RoleArn: !GetAtt CloudFormationExecutionRole.Arn
-                        StackName: aws-sam-pipeline-booking-dev
-                        ChangeSetName: aws-sam-pipeline-booking-ChangeSet-dev
+                        StackName: aws-sam-pipeline-product-dev
+                        ChangeSetName: aws-sam-pipeline-product-ChangeSet-dev
                       OutputArtifacts:
-                        - Name: aws-sam-pipeline-bookingDevChangeSet
+                        - Name: aws-sam-pipeline-productDevChangeSet
                       RunOrder: 2
                 - Name: staging
                   Actions:
@@ -193,8 +193,8 @@ Resources:
                       Configuration:
                         ActionMode: CHANGE_SET_REPLACE
                         RoleArn: !GetAtt CloudFormationExecutionRole.Arn
-                        StackName: aws-sam-pipeline-booking-staging
-                        ChangeSetName: aws-sam-pipeline-booking-ChangeSet-staging
+                        StackName: aws-sam-pipeline-product-staging
+                        ChangeSetName: aws-sam-pipeline-product-ChangeSet-staging
                         TemplatePath: BuildArtifactAsZip::packaged.yaml
                         Capabilities: CAPABILITY_IAM
                         ParameterOverrides: |
@@ -213,10 +213,10 @@ Resources:
                       Configuration:
                         ActionMode: CHANGE_SET_EXECUTE
                         RoleArn: !GetAtt CloudFormationExecutionRole.Arn
-                        StackName: aws-sam-pipeline-booking-staging
-                        ChangeSetName: aws-sam-pipeline-booking-ChangeSet-staging
+                        StackName: aws-sam-pipeline-product-staging
+                        ChangeSetName: aws-sam-pipeline-product-ChangeSet-staging
                       OutputArtifacts:
-                        - Name: aws-sam-pipeline-bookingStagingChangeSet
+                        - Name: aws-sam-pipeline-productStagingChangeSet
                       RunOrder: 2
                 - Name: prod
                   Actions:
@@ -236,8 +236,8 @@ Resources:
                       Configuration:
                         ActionMode: CHANGE_SET_REPLACE
                         RoleArn: !GetAtt CloudFormationExecutionRole.Arn
-                        StackName: aws-sam-pipeline-booking-prod
-                        ChangeSetName: aws-sam-pipeline-booking-ChangeSet-prod
+                        StackName: aws-sam-pipeline-product-prod
+                        ChangeSetName: aws-sam-pipeline-product-ChangeSet-prod
                         TemplatePath: BuildArtifactAsZip::packaged.yaml
                         Capabilities: CAPABILITY_IAM
                         ParameterOverrides: |
@@ -256,10 +256,10 @@ Resources:
                       Configuration:
                         ActionMode: CHANGE_SET_EXECUTE
                         RoleArn: !GetAtt CloudFormationExecutionRole.Arn
-                        StackName: aws-sam-pipeline-booking-prod
-                        ChangeSetName: aws-sam-pipeline-booking-ChangeSet-prod
+                        StackName: aws-sam-pipeline-product-prod
+                        ChangeSetName: aws-sam-pipeline-product-ChangeSet-prod
                       OutputArtifacts:
-                        - Name: aws-sam-pipeline-bookingprodChangeSet
+                        - Name: aws-sam-pipeline-productprodChangeSet
                       RunOrder: 3
 
 
@@ -296,8 +296,8 @@ Resources:
                           - 'logs:CreateLogStream'
                           - 'logs:PutLogEvents'
                         Resource:
-                          - !Sub 'arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/codebuild/aws-sam-pipeline-booking'
-                          - !Sub 'arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/codebuild/aws-sam-pipeline-booking:*'
+                          - !Sub 'arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/codebuild/aws-sam-pipeline-product'
+                          - !Sub 'arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/codebuild/aws-sam-pipeline-product:*'
                 - PolicyName: CodeBuildArtifactsBucket
                   PolicyDocument:
                     Version: '2012-10-17'
@@ -396,7 +396,7 @@ Resources:
                           - 'cloudformation:SetStackPolicy'
                           - 'cloudformation:ValidateTemplate'
                         Resource: 
-                          - !Sub 'arn:aws:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/aws-sam-pipeline-booking*/*'
+                          - !Sub 'arn:aws:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/aws-sam-pipeline-product*/*'
                           - !Sub 'arn:aws:cloudformation:${AWS::Region}:aws:transform/Serverless-2016-10-31'
 
 
