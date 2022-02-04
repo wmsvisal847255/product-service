@@ -19,7 +19,7 @@ exports.handler = async(event) => {
     console.error(product);
     console.error(tableName);
     let data = await dynamodb.put({
-        TableName: ProductTripDev,
+        TableName: 'ProductTripDev',
         Item: product
     }).promise();
     
