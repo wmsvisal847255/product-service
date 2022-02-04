@@ -52,7 +52,12 @@ Resources:
     Type: 'AWS::Serverless::Function'
     Properties:
       Handler: src/handlers/get-product.handler
-      Policies: AmazonDynamoDBReadOnlyAccess
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !FindInMap [ResourcesName, !Ref Environment, tableName]
+      Environment:
+        Variables:
+          TABLE_NAME: !FindInMap [ResourcesName, !Ref Environment, tableName]
       Events:
         GetProduct:
           Type: Api
@@ -64,7 +69,12 @@ Resources:
     Type: 'AWS::Serverless::Function'
     Properties:
       Handler: src/handlers/save-update-product.handler
-      Policies: AmazonDynamoDBFullAccess
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !FindInMap [ResourcesName, !Ref Environment, tableName]
+      Environment:
+        Variables:
+          TABLE_NAME: !FindInMap [ResourcesName, !Ref Environment, tableName]
       Events:
         GetProduct:
           Type: Api
@@ -76,7 +86,12 @@ Resources:
     Type: 'AWS::Serverless::Function'
     Properties:
       Handler: src/handlers/delete-product.handler
-      Policies: AmazonDynamoDBFullAccess
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !FindInMap [ResourcesName, !Ref Environment, tableName]
+      Environment:
+        Variables:
+          TABLE_NAME: !FindInMap [ResourcesName, !Ref Environment, tableName]
       Events:
         GetProduct:
           Type: Api
