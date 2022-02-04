@@ -14,14 +14,10 @@ exports.handler = async (event) => {
         }
 
     }).promise();
-    if (data.Item) {
-        return {
-            statusCode: 200,
-            body: JSON.stringify({
-                message: 'Product deleted successfully'
-            })
-        }
-    } else {
-        throw new Error('Product not found.');
+    return {
+        statusCode: 200,
+        body: JSON.stringify({
+            message: 'Product deleted successfully'
+        })
     }
 }
