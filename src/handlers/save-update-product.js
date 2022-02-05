@@ -16,7 +16,6 @@ exports.handler = async(event) => {
         quantity: quantity
     }
 
-    console.error(product);
     let data = await dynamodb.put({
         TableName: tableName,
         Item: product
@@ -25,7 +24,7 @@ exports.handler = async(event) => {
     return {
         statusCode: 200,
         body: JSON.stringify({
-            message: 'Data inserted/updated successfully.'
+            message: 'Data inserted successfully.'
         })
     }
 }
